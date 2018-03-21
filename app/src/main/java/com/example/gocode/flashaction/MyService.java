@@ -59,46 +59,7 @@ public class MyService extends Service {
                 @Override
                 public void onShake(int count) {
                     vibe.vibrate(300);
-                    if (flashDesligado) {
-                        try {
-                            CameraManager cameraManager = (CameraManager) getApplicationContext().getSystemService(Context.CAMERA_SERVICE);
-                            for (String id : cameraManager.getCameraIdList()) {
-
-                                // Turn on the flash if camera has one
-                                if (cameraManager.getCameraCharacteristics(id)
-                                        .get(CameraCharacteristics.FLASH_INFO_AVAILABLE)) {
-                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                        cameraManager.setTorchMode(id, true);
-                                    }
-                                    flashDesligado = false;
-                                }
-                            }
-                        } catch (CameraAccessException e) {
-                            Log.e("tag", "Failed to interact with camera.", e);
-                            Toast.makeText(getApplicationContext(), "Torch Failed: " + e.getMessage(), Toast.LENGTH_SHORT)
-                                    .show();
-                        }
-                    } else {
-                        try {
-                            CameraManager cameraManager = (CameraManager) getApplicationContext().getSystemService(Context.CAMERA_SERVICE);
-                            for (String id : cameraManager.getCameraIdList()) {
-
-                                // Turn on the flash if camera has one
-                                if (cameraManager.getCameraCharacteristics(id)
-                                        .get(CameraCharacteristics.FLASH_INFO_AVAILABLE)) {
-                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                        cameraManager.setTorchMode(id, false);
-                                    }
-                                    flashDesligado = true;
-                                }
-                            }
-                        } catch (CameraAccessException e) {
-                            Log.e("tag", "Failed to interact with camera.", e);
-                            Toast.makeText(getApplicationContext(), "Torch Failed: " + e.getMessage(), Toast.LENGTH_SHORT)
-                                    .show();
-                        }
-
-                    }
+                    onFlashlight();
                 }
             });
         }
@@ -109,5 +70,49 @@ public class MyService extends Service {
         // Add the following line to unregister the Sensor Manager onPause
         mSensorManager.unregisterListener(mShakeDetector);
         running = false;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private void onFlashlight() {
+        if (flashDesligado) {
+            try {
+                CameraManager cameraManager = (CameraManager) getApplicationContext().getSystemService(Context.CAMERA_SERVICE);
+                for (String id : cameraManager.getCameraIdList()) {
+
+                    // Turn on the flash if camera has one
+                    if (cameraManager.getCameraCharacteristics(id)
+                            .get(CameraCharacteristics.FLASH_INFO_AVAILABLE)) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            cameraManager.setTorchMode(id, true);
+                        }
+                        flashDesligado = false;
+                    }
+                }
+            } catch (CameraAccessException e) {
+                Log.e("tag", "Failed to interact with camera.", e);
+                Toast.makeText(getApplicationContext(), "Torch Failed: " + e.getMessage(), Toast.LENGTH_SHORT)
+                        .show();
+            }
+        } else {
+            try {
+                CameraManager cameraManager = (CameraManager) getApplicationContext().getSystemService(Context.CAMERA_SERVICE);
+                for (String id : cameraManager.getCameraIdList()) {
+
+                    // Turn on the flash if camera has one
+                    if (cameraManager.getCameraCharacteristics(id)
+                            .get(CameraCharacteristics.FLASH_INFO_AVAILABLE)) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            cameraManager.setTorchMode(id, false);
+                        }
+                        flashDesligado = true;
+                    }
+                }
+            } catch (CameraAccessException e) {
+                Log.e("tag", "Failed to interact with camera.", e);
+                Toast.makeText(getApplicationContext(), "Torch Failed: " + e.getMessage(), Toast.LENGTH_SHORT)
+                        .show();
+            }
+
+        }
     }
 }
