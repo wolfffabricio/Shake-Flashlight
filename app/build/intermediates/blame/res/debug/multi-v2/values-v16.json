@@ -4,17 +4,7 @@
             "outputFile": "C:\\Users\\Go Code\\Git\\Shake Flashlight\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v16\\values-v16.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Go Code\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\ce7284b06ae6e51c3ae372afe7699a56\\res\\values-v16\\values-v16.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "65",
-                        "endOffsets": "116"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\Go Code\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\a9107ce7aa6cf38ed0418ea3a6248379\\res\\values-v16\\values-v16.xml",
+                    "source": "C:\\Users\\Go Code\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\a364c92c67ce9ac675a4e49322c43c73\\res\\values-v16\\values-v16.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -30,6 +20,16 @@
                         "endLines": "6",
                         "endColumns": "12",
                         "endOffsets": "289"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\Go Code\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\c31a3515390acbbec1e75cefc411896c\\res\\values-v16\\values-v16.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "65",
+                        "endOffsets": "116"
                     }
                 }
             ]
