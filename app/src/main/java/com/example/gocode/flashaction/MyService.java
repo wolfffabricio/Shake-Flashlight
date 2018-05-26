@@ -19,6 +19,7 @@ public class MyService extends Service {
 
     static boolean running;
     private Boolean flashDesligado = true;
+    private Vibrator vibe;
     private SensorManager mSensorManager;
     private Sensor mAccelerometer;
     private ShakeDetector mShakeDetector;
@@ -52,14 +53,17 @@ public class MyService extends Service {
     public class ThreadService extends Thread {
         @Override
         public void run() {
-            final Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+            vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
             mShakeDetector.setOnShakeListener(new ShakeDetector.OnShakeListener() {
 
                 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                 @Override
                 public void onShake(int count) {
-                    vibe.vibrate(300);
-                    onFlashlight();
+
+                    if(count == 2){
+                        onFlashlight();
+                        mShakeDetector.setmShakeCount(0);
+                    }
                 }
             });
         }
@@ -75,6 +79,7 @@ public class MyService extends Service {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void onFlashlight() {
         if (flashDesligado) {
+            vibe.vibrate(300);
             try {
                 CameraManager cameraManager = (CameraManager) getApplicationContext().getSystemService(Context.CAMERA_SERVICE);
                 for (String id : cameraManager.getCameraIdList()) {
@@ -94,6 +99,7 @@ public class MyService extends Service {
                         .show();
             }
         } else {
+            vibe.vibrate(300);
             try {
                 CameraManager cameraManager = (CameraManager) getApplicationContext().getSystemService(Context.CAMERA_SERVICE);
                 for (String id : cameraManager.getCameraIdList()) {
@@ -112,7 +118,6 @@ public class MyService extends Service {
                 Toast.makeText(getApplicationContext(), "Torch Failed: " + e.getMessage(), Toast.LENGTH_SHORT)
                         .show();
             }
-
         }
     }
 }
